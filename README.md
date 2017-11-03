@@ -21,10 +21,10 @@ I've tried to keep this mainly dependency free
 ## Commands
 New commands go in the commands directory (see existing commands for examples). Basic rundown is
 
-- the client_<command name> method gets executed on the connecting client
-- the server_<command name> gets passed the command and the response data from the command and is expected to return a string for display
-- the server_<command_name>_transform method if defined is passed the command typed and eis expected to return a new command (see the upload command for an example)
-- the server_<command_name>_custom method if defined is the only method called and is generally used to either orchestrate other commands. It must deal with printing its own output etc (see the edit command for an example
+1. the `client_<command name>` method gets executed on the connecting client
+2. the `server_<command name>` gets passed the command and the response data from the command and is expected to return a string for display
+3. the `server_<command_name>_transform` method if defined is passed the command typed and eis expected to return a new command (see the upload command for an example)
+4. the `server_<command_name>_custom` method if defined is the only method called and is generally used to either orchestrate other commands. It must deal with printing its own output etc (see the edit command for an example
 
 ## TODO
 - Play some gansta ass theme when a connection happens
