@@ -17,7 +17,9 @@ import os
 import signal
 import glob
 import base64
+import threading
 from logger import red, blue, green, yellow, grey, lgrey, strike, underline, info, error, warn, output
+from playsound import playsound
 import readline
 
 readline.parse_and_bind('tab: complete')
@@ -94,6 +96,9 @@ def run_custom(cmd, full_command):
     else:
         return False
 
+def play_connection_sound():
+    playsound(os.path.join(os.path.dirname(os.path.realpath(__file__)), "connection.wav"))
+
 print banner
 
 # Load plugins in global scope
@@ -153,6 +158,8 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 info("Conection received from [%s]\n" % yellow(addr[0]))
+t = threading.Thread(target=play_connection_sound)
+t.start()
 scroll_thug()
 
 info("Entering command prompt....")

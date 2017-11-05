@@ -15,6 +15,7 @@ ___________.__                     _________.__           .__  .__
 ## Install
 ```
 $ pip install docopt
+$ pip install playsound
 ```
 I've tried to keep this mainly dependency free
 
