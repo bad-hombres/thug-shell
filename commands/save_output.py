@@ -11,7 +11,8 @@ def server_save_output(cmd, data):
 
 def server_save_output_custom(cmd):
     file_name = cmd.split(" ")[1]
-    with open(file_name, "w") as f:
-        f.write(get_prev_data())
+    f = open(file_name, "w")
+    f.write(get_prev_data())
+    f.close()
 
 

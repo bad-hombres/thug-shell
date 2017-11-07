@@ -26,8 +26,9 @@ def server_download(cmd, data):
     if len(parts) == 3:
         file_name = parts[2]
 
-    with open(file_name, "wb") as f:
-        f.write(contents)
+    f = open(file_name, "wb")
+    f.write(contents)
+    f.close()
 
     return "%s downloaded..." % file_name
 

@@ -28,8 +28,9 @@ New commands go in the commands directory (see existing commands for examples). 
 4. the `server_<command_name>_custom` method if defined is the only method called and is generally used to either orchestrate other commands. It must deal with printing its own output etc (see the edit command for an example
 
 ## TODO
-- Play some gansta ass theme when a connection happens
 - Support multi connections?
 - SSL?
 
 Who knows I did this for kicks and the code is wonky. Heavilly inspired by https://0x00sec.org/t/how-to-make-a-reverse-tcp-backdoor-in-python-part-1/1038
+
+This should work on python 2.4 as is but if you write any extensions with newer syntax then that becomes the supported version
