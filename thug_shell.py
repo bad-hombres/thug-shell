@@ -97,7 +97,10 @@ def run_custom(cmd, full_command):
         return False
 
 def play_connection_sound():
-    playsound(os.path.join(os.path.dirname(os.path.realpath(__file__)), "connection.wav"))
+    try:
+        playsound(os.path.join(os.path.dirname(os.path.realpath(__file__)), "connection.wav"))
+    except:
+        pass
 
 print banner
 
